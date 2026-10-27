@@ -5,6 +5,12 @@ public class Library {
     private final ArrayList<Resource> resources = new ArrayList<>();
     private final ArrayList<Member> members = new ArrayList<>();
     private final ArrayList<Loan> loans = new ArrayList<>();
+    private final LoanPolicy loanPolicy;
+
+    public Library(LoanPolicy loanPolicy) {
+        this.loanPolicy = loanPolicy;
+    }
+
 
     public void addResource(Resource resource) {
         resources.add(resource);
@@ -61,8 +67,14 @@ public class Library {
             }
         }
 
-        loans.add(new Loan(resource, member, LocalDate.now()));
-        return LoanResult.SUCCESS;
+       if (!loanPolicy.canLoan(resource, member, loans)) {
+           return LoanResult.NOT_PERMITTED;
+       }
+
+       LocalDate borrowedDate = LocalDate.now();
+       LocalDate dueDate = loanPolicy.calculateDueDate(resource, borrowedDate);
+       loans.add(new Loan(resource, member, borrowedDate, dueDate));
+       return LoanResult.SUCCESS;
     }
 
     public boolean returnResource(String identifier, int memberId) {

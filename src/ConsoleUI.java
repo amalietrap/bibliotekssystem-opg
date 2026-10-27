@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.List;
 public class ConsoleUI {
     private Library library;
 
@@ -44,6 +44,7 @@ public class ConsoleUI {
                 case MEMBER_NOT_FOUND -> IO.println("Medlemmet findes ikke.");
                 case RESOURCE_NOT_FOUND -> IO.println("Materialet findes ikke.");
                 case RESOURCE_ALREADY_LOANED -> IO.println("Materialet er allerede udlånt.");
+                case NOT_PERMITTED -> IO.println("Lånet er ikke tilladt.");
         }
     }
     private void returnBook() {
@@ -62,7 +63,7 @@ public class ConsoleUI {
     private void showLoans() {
         int memberId = Integer.parseInt(IO.readln("Indtast medlemsnummer: "));
 
-        ArrayList<Loan> loans = library.findLoansByMemberId(memberId);
+        List<Loan> loans = library.findLoansByMemberId(memberId);
 
         if (loans.isEmpty()) {
             IO.println("Medlemmet har ingen lån.");

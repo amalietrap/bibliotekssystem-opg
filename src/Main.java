@@ -1,6 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-        Library library = new Library();
+        Library library = new Library(new StandardLoanPolicy());
 
         Book book1 = new Book(
                 "Allan B. Downey", "Think Java", "978149207250", 400);

@@ -4,11 +4,13 @@ public class Loan {
     private final Resource resource;
     private final Member member;
     private final LocalDate borrowedDate;
+    private final LocalDate dueDate;
 
-    public Loan(Resource resource, Member member, LocalDate borrowedDate) {
+    public Loan(Resource resource, Member member, LocalDate borrowedDate, LocalDate dueDate) {
         this.resource = resource;
         this.member = member;
         this.borrowedDate = borrowedDate;
+        this.dueDate = dueDate;
     }
 
     public LocalDate getBorrowedDate() {
@@ -24,7 +26,7 @@ public class Loan {
     }
 
     public LocalDate getDueDate() {
-        return borrowedDate.plusDays(14);
+        return dueDate;
     }
 
     public boolean isOverdue() {
